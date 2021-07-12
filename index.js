@@ -1,5 +1,7 @@
 const express =  require('express');
 const app = express();
+const mongoose = require('mongoose');
+require('dotenv/config');
 
 const courses = [
     {   id: 1, name:'course1'},
@@ -18,6 +20,12 @@ app.get('/api/courses', (req, res) => {
 app.get('/api/courses/:id', (req, res) => {
     res.send(req.params.id);
 })
+
+mongoose.connect(
+    process.env.DB_CONNECTION, 
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    () => console.log('connected to DB!')
+);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on ${port}`));
