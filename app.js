@@ -3,19 +3,14 @@ const app = express();
 const mongoose = require('mongoose');
 require('dotenv/config');
 
-const courses = [
-    {   id: 1, name:'course1'},
-    {   id: 2, name:'course2'},
-    {   id: 3, name:'course3'}
-];
+const booksRoute = require('./routes/books');
+
+app.use('/books', booksRoute);
 
 app.get('/', (req, res) => {
     res.send('Hello World!!');
 });
 
-app.get('/api/courses', (req, res) => {
-    res.send(courses);
-})
 
 app.get('/api/courses/:id', (req, res) => {
     res.send(req.params.id);
