@@ -3,24 +3,31 @@ const router = express.Router();
 const Book = require('../models/Book')
 
 
-router.get('/', (req, res) => {
-    res.send('We are on books!');
+router.get('/', async (req, res) => {
+    try{ 
+        const books = await Book.find();
+        res.json(books);
+    } catch (err) {
+        res.json({message: err });
+    }
 });
 
-router.post('/', (req,res) => {
+router.post('/', async (req,res) => {
     const book = new Book({
         title: req.body.title,
         author: req.body.author,
         isbn: req.body.isbn
     });
 
-    book.save()
-    .then(data => {
-        res.json(data);
-    })
-    .catch(err => {
+   
+    try {
+        const savedBook = await book.save();
+        res.json(savedBook);
+
+    } catch (err) {
         res.json({message: err });
-    });
+    }
+
 });
 
 module.exports = router;

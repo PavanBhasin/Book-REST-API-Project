@@ -17,11 +17,6 @@ app.get('/', (req, res) => {
     res.send('Hello World!!');
 });
 
-
-app.get('/api/courses/:id', (req, res) => {
-    res.send(req.params.id);
-})
-
 mongoose.connect(
     process.env.DB_CONNECTION, 
     { useNewUrlParser: true, useUnifiedTopology: true },
